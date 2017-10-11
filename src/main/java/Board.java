@@ -20,7 +20,7 @@ public class Board {
         for (int i = 0; i < x; i++){
             for (int j = 0; j < y; j++){
                 int chance = random.nextInt(101);
-                if (chance < 30){
+                if (chance < 30){ //30% chance to add a bomb
                     board[i][j] = '*';
                 }
                 else {
@@ -34,8 +34,7 @@ public class Board {
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board[i].length; j++){
                 if (board[i][j] == '.'){
-                    char bombCount = bombsNearby(i, j);
-                    board[i][j] = bombCount;
+                    board[i][j] = bombsNearby(i, j);
                 }
             }
         }
