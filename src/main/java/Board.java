@@ -14,10 +14,6 @@ public class Board {
         return instance;
     }
 
-    public char[][] getBoard(){
-        return board;
-    }
-
     public void generate(int x, int y){
         Random random = new Random();
         board = new char[x][y];
@@ -34,7 +30,33 @@ public class Board {
         }
     }
 
-    public void populate(char[][] board){
+    public void populate(){
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[i].length; j++){
+                if (board[i][j] == '.'){
+                    char bombCount = bombsNearby(i, j);
+                    board[i][j] = bombCount;
+                }
+            }
+        }
+    }
+
+    private char bombsNearby(int x, int y){
+        int count = 0;
+        int[] combinationsX = new int[]{x - 1, x, x + 1};
+        int[] combinationsY = new int[]{y - 1, y, y + 1};
+
+        for (int comboX: combinationsX){
+            for (int comboY: combinationsY){
+                try{
+                    char temp = board[comboX][comboY];
+                    if (temp == '*') count++;
+                } catch (ArrayIndexOutOfBoundsException e){}
+            }
+        }
+
+        char result = (char) (count + '0');
+        return result;
     }
 
     @Override
